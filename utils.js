@@ -37,7 +37,7 @@ const fetchPuzzle = ({ YEAR, day, sample = "" }) => fetchPage({ YEAR, day })({ u
 const fetchSample = async ({ YEAR, day, sample }) => {
   const sampleFileName = ({ sample }) => path.join("adventofcode.com",YEAR,`day${day}`,`sample${sample>1?sample:""}.txt`);
   if(!fs.existsSync(sampleFileName({sample}))) {
-    const puzzle = await fetchPuzzle({YEAR, day});
+    const puzzle = await fetchPuzzle({YEAR, day, sample});
     const sampleHTML = HTMLParser.parse(puzzle, {blockTextElements: {}});
     const sampleNodes = sampleHTML.querySelectorAll('pre');
     sampleNodes.forEach((code,idx) => {

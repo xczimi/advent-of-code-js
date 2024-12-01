@@ -91,10 +91,11 @@ describe(`Year 2023`, () => {
         const input = await fetchInput({YEAR, day});
         const result = solve(input);
         console.debug({result});
+        expect(result).toBe(530495);
       });
     })
     describe("part 2", () => {
-      const sampleOutput = '<TBD>';
+      const sampleOutput = 467835;
       const {part2:solve} = require(`./day3.js`);
       test('should return expected output for sample input', async () => {
         const input = await fetchSample({YEAR, day, sample: 2});
