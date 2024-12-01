@@ -1,6 +1,3 @@
-Here is a simple `README.md` file for your project:
-
-```markdown
 # Advent of Code JavaScript Solutions
 
 This repository contains solutions for the Advent of Code challenges implemented in JavaScript.
@@ -51,6 +48,3 @@ This project uses GitHub Actions for continuous integration. The workflow is def
 ## License
 
 This project is licensed under the MIT License.
-```
-
-This `README.md` file provides an overview of the project, instructions for setting up the development environment, and information on running tests and continuous integration.
