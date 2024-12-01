@@ -23,4 +23,4 @@ jobs:
         run: yarn install
 
       - name: Advent of Code 2024
-        run: yarn test:2024
+        run: yarn test 2024
