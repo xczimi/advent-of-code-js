@@ -41,4 +41,39 @@ describe(`Year 2024`, () => {
       });
     })
   })
+  describe("day 2", () => {
+    const day = "2";
+    beforeAll(async () => await fetchSample({YEAR, day}));
+    describe("part 1", () => {
+      const sampleOutput = 2;
+      const {solve} = require(`./day2.js`);
+      test('should return expected output for sample input', async () => {
+        const input = await fetchSample({YEAR, day});
+        const result = solve(input);
+        expect(result).toBe(sampleOutput);
+      });
+      test('should solve the input', async () => {
+        const input = await fetchInput({YEAR, day});
+        const result = solve(input);
+        console.debug({result});
+        expect(result).toBe(306);
+      });
+    })
+    describe("part 2", () => {
+      const sampleOutput = 4;
+      const {part2:solve} = require(`./day2.js`);
+      test('should return expected output for sample input', async () => {
+        const input = await fetchSample({YEAR, day});
+        const result = solve(input);
+        expect(result).toBe(sampleOutput);
+      });
+      test('should solve the input', async () => {
+        const input = await fetchInput({YEAR, day});
+        const result = solve(input);
+        console.debug({result})
+        expect(result).toBe(366);
+      });
+    })
+  })
+
 })
