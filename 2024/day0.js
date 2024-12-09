@@ -5,5 +5,5 @@ const solve = (input) => {
 };
 const part2 = (input) => {
   return "solution";
-}
-module.exports = {solve,part2}
+};
+module.exports = { solve, part2 };
