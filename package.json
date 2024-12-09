@@ -12,6 +12,7 @@
     "ramda": "^0.30.1"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --print-width 160 -w */*.js"
   }
 }

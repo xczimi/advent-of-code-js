@@ -15,8 +15,6 @@ const part2 = (input) => {
   const pairs = parseInput(input);
   const left = R.map(R.prop(0))(pairs);
   const right = R.map(R.prop(1))(pairs);
-  return R.sum(
-    R.map((leftId) => leftId * R.count(R.equals(leftId))(right))(left),
-  );
+  return R.sum(R.map((leftId) => leftId * R.count(R.equals(leftId))(right))(left));
 };
 module.exports = { solve, part2 };

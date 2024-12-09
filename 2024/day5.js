@@ -42,8 +42,7 @@ const part2 = (input, sorted = false) => {
     updates
       .map((update, idx) => {
         const sortedUpdate = R.sort(R.comparator(rulesComparator), update);
-        if ((sortedUpdate.join(",") === updatesStr[idx]) === sorted)
-          return middleFn(sortedUpdate);
+        if ((sortedUpdate.join(",") === updatesStr[idx]) === sorted) return middleFn(sortedUpdate);
       })
       .filter(Boolean),
   );

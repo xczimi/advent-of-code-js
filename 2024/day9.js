@@ -39,10 +39,7 @@ const part2 = (input) => {
         return {
           file: !file,
           fid: file ? fid + 1 : fid,
-          disk: [
-            ...disk,
-            file ? { [fid]: curr } : curr ? { empty: curr } : null,
-          ],
+          disk: [...disk, file ? { [fid]: curr } : curr ? { empty: curr } : null],
         };
       },
       { file: true, fid: 0, disk: [] },
@@ -55,22 +52,13 @@ const part2 = (input) => {
       .reduce((acc, curr, idx) => {
         if (curr.empty) return acc;
         const [[fid, flen]] = Object.entries(curr);
-        const emptyIdx = acc
-          .map(({ empty }, idx) => (empty >= flen ? idx : null))
-          .find(Boolean);
-        if (
-          emptyIdx &&
-          emptyIdx < acc.map((f, idx) => (f[fid] ? idx : null)).find(Boolean)
-        ) {
+        const emptyIdx = acc.map(({ empty }, idx) => (empty >= flen ? idx : null)).find(Boolean);
+        if (emptyIdx && emptyIdx < acc.map((f, idx) => (f[fid] ? idx : null)).find(Boolean)) {
           return [
             ...acc.slice(0, emptyIdx),
             curr,
-            acc[emptyIdx].empty > flen
-              ? { empty: acc[emptyIdx].empty - flen }
-              : null,
-            ...acc
-              .slice(emptyIdx + 1)
-              .map((f) => (f[fid] ? { empty: f[fid] } : f)),
+            acc[emptyIdx].empty > flen ? { empty: acc[emptyIdx].empty - flen } : null,
+            ...acc.slice(emptyIdx + 1).map((f) => (f[fid] ? { empty: f[fid] } : f)),
           ].filter(Boolean);
         }
         return acc;

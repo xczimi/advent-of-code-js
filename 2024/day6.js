@@ -60,9 +60,7 @@ const part2 = (input) => {
   const flatmap = walkmap({ fmap, width });
   console.log(R.splitEvery(width, flatmap).map(R.join("")).join("\n"));
 
-  const xps = flatmap
-    .map((c, p) => (["X"].includes(c) ? p : null))
-    .filter(Boolean);
+  const xps = flatmap.map((c, p) => (["X"].includes(c) ? p : null)).filter(Boolean);
   console.log(xps.length);
 
   return R.uniq(

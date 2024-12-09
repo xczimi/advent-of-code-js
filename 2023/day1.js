@@ -12,23 +12,17 @@ const solve = (input) => {
 const part2 = (input) => {
   return R.sum(
     input.split("\n").map((line) => {
-      const digits = "0|one|two|three|four|five|six|seven|eight|nine".split(
-        "|",
-      );
+      const digits = "0|one|two|three|four|five|six|seven|eight|nine".split("|");
       const firstDigits = digits.map((digit, idx) =>
         R.apply(
           Math.min,
-          [line.indexOf(digit), line.indexOf(`${idx}`)].filter(
-            (idx) => idx !== -1,
-          ),
+          [line.indexOf(digit), line.indexOf(`${idx}`)].filter((idx) => idx !== -1),
         ),
       );
       const lastDigits = digits.map((digit, idx) =>
         R.apply(
           Math.max,
-          [line.lastIndexOf(digit), line.lastIndexOf(`${idx}`)].filter(
-            (idx) => idx !== -1,
-          ),
+          [line.lastIndexOf(digit), line.lastIndexOf(`${idx}`)].filter((idx) => idx !== -1),
         ),
       );
       const firstDigit = firstDigits.indexOf(R.apply(Math.min, firstDigits));

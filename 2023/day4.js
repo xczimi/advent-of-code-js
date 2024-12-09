@@ -6,10 +6,7 @@ const solve = (input) => {
     .filter(Boolean)
     .map((line) => {
       const [_, cardNumbers] = line.split(/: +/);
-      const [winNums, cardNums] = cardNumbers
-        .split(/ \| +/)
-        .map(R.split(/ +/))
-        .map(R.map(parseInt));
+      const [winNums, cardNums] = cardNumbers.split(/ \| +/).map(R.split(/ +/)).map(R.map(parseInt));
       const nums = R.intersection(winNums, cardNums).length;
       return nums > 0 ? Math.pow(2, nums - 1) : 0;
     });
@@ -22,19 +19,14 @@ const part2 = (input) => {
     .filter(Boolean)
     .map((line) => {
       const [_, cardNumbers] = line.split(/: +/);
-      const [winNums, cardNums] = cardNumbers
-        .split(/ \| +/)
-        .map(R.split(/ +/))
-        .map(R.map(parseInt));
+      const [winNums, cardNums] = cardNumbers.split(/ \| +/).map(R.split(/ +/)).map(R.map(parseInt));
       return R.intersection(winNums, cardNums).length;
     });
 
   const cards = cardWins.reduce(
     (acc, cur, idx) => {
       if (cur) {
-        return acc.map((val, i) =>
-          i >= idx + 1 && i <= idx + cur ? val + acc[idx] : val,
-        );
+        return acc.map((val, i) => (i >= idx + 1 && i <= idx + cur ? val + acc[idx] : val));
       }
       return acc;
     },

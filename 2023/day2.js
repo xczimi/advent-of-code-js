@@ -48,11 +48,7 @@ const part2 = (input) => {
         );
       });
       //console.debug({qubes});
-      return R.product(
-        ["red", "green", "blue"].map((color) =>
-          R.apply(Math.max, R.map(R.propOr(0, color), qubes)),
-        ),
-      );
+      return R.product(["red", "green", "blue"].map((color) => R.apply(Math.max, R.map(R.propOr(0, color), qubes))));
     })
     .filter(Boolean);
   //console.debug({gameLines},R.sum(gameLines));
