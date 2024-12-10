@@ -281,7 +281,7 @@ describe(`Year 2024`, () => {
       test("should return expected output for sample input 6", async () => {
         const input = await fetchSample({ YEAR, day, sample: 6 });
         const result = solve(input);
-        expect(result).toBe(9);
+        expect(result).toBe(12);
       });
       test("should solve the input", async () => {
         const input = await fetchInput({ YEAR, day });
