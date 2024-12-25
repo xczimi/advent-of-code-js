@@ -36,12 +36,3 @@ const part2 = (input) => {
   return "solution";
 };
 module.exports = { solve, part2 };
-
-// (async () => {
-//   console.log(JSON.stringify(process.argv, null, 2));
-//   // const input = await fetchSample({YEAR:"2024", day:14})
-//   // solve(input);
-//   const input = await fetchInput({ YEAR: "2024", day: 14 });
-//   solve(input, {xMax:101,yMax:103,steps:8168});
-// })();
-//
