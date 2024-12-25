@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const HTMLParser = require('node-html-parser');
+const { decode } = require('html-entities');
 
 const headers = {
   "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
@@ -41,7 +42,7 @@ const fetchSample = async ({ YEAR, day, sample }) => {
     const sampleHTML = HTMLParser.parse(puzzle, {blockTextElements: {}});
     const sampleNodes = sampleHTML.querySelectorAll('pre');
     sampleNodes.forEach((code,idx) => {
-      fs.writeFileSync(sampleFileName({sample:idx+1}),code.innerText);
+      fs.writeFileSync(sampleFileName({sample:idx+1}),decode(code.innerText));
     });
   }
   return fs.readFileSync(sampleFileName({sample}), "utf8") || "";

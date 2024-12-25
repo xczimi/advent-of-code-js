@@ -539,4 +539,43 @@ describe(`Year 2024`, () => {
     });
   });
 
+  describe("day 15", () => {
+    const day = "15";
+    const dayCode = require(`./day15.js`);
+    beforeAll(async () => await fetchSample({ YEAR, day }));
+    describe("part 1", () => {
+      const { solve } = dayCode;
+      test("should return expected output for sample input", async () => {
+        const input = await fetchSample({YEAR, day})
+        const result = solve(input);
+        expect(result).toBe(10092);
+      });
+      test("should return expected output for sample input 2", async () => {
+        const input = await fetchSample({YEAR, day, sample: 2});
+        const result = solve(input);
+        expect(result).toBe(2028);
+      });
+      test("should solve the input", async () => {
+        const input = await fetchInput({ YEAR, day });
+        const result = solve(input);
+        console.debug({ result });
+        expect(result).toBe(1437174);
+      });
+    });
+    describe("part 2", () => {
+      const { part2: solve } = dayCode;
+      test("should return expected output for sample input", async () => {
+        const input = await fetchSample({ YEAR, day });
+        const result = solve(input);
+        expect(result).toBe("answer");
+      });
+      test("should solve the input", async () => {
+        const input = await fetchInput({ YEAR, day });
+        const result = solve(input);
+        console.debug({ result });
+        expect(result).toBe("answer");
+      });
+    });
+  });
+
 });
