@@ -566,14 +566,20 @@ describe(`Year 2024`, () => {
       const { part2: solve } = dayCode;
       test("should return expected output for sample input", async () => {
         const input = await fetchSample({ YEAR, day });
+        const output = await fetchSample({ YEAR, day, sample: 10 });
         const result = solve(input);
-        expect(result).toBe("answer");
+        expect(result).toBe(9021);
+      });
+      test("should return expected output for sample input 7", async () => {
+        const input = await fetchSample({YEAR, day, sample: 7});
+        const result = solve(input);
+        expect(result).toBe(618);
       });
       test("should solve the input", async () => {
         const input = await fetchInput({ YEAR, day });
         const result = solve(input);
         console.debug({ result });
-        expect(result).toBe("answer");
+        expect(result).toBe(1437468);
       });
     });
   });
