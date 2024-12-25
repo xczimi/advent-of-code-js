@@ -511,4 +511,38 @@ describe(`Year 2024`, () => {
     });
   });
 
+  describe("day 14", () => {
+    const day = "14";
+    const dayCode = require(`./day14.js`);
+    beforeAll(async () => await fetchSample({ YEAR, day }));
+    describe("part 1", () => {
+      const { solve } = dayCode;
+      test("should return expected output for sample input", async () => {
+        const input = await fetchSample({YEAR, day})
+        const result = solve(input);
+        expect(result).toBe(12);
+      });
+      test("should solve the input", async () => {
+        const input = await fetchInput({ YEAR, day });
+        const result = solve(input, {xMax:101,yMax:103});
+        console.debug({ result });
+        expect(result).toBe(226236192);
+      });
+    });
+    // describe("part 2", () => {
+    //   const { part2: solve } = dayCode;
+    //   test("should return expected output for sample input", async () => {
+    //     const input = await fetchSample({ YEAR, day });
+    //     const result = solve(input);
+    //     expect(result).toBe(875318608908);
+    //   });
+    //   test("should solve the input", async () => {
+    //     const input = await fetchInput({ YEAR, day });
+    //     const result = solve(input);
+    //     console.debug({ result });
+    //     expect(result).toBe(99548032866004);
+    //   });
+    // });
+  });
+
 });
