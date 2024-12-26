@@ -599,7 +599,7 @@ describe(`Year 2024`, () => {
         const input = await fetchInput({ YEAR, day });
         const result = solve(input);
         console.debug({ result });
-        expect(result).toBe("answer");
+        expect(result).toBe(83444);
       });
     });
     // describe("part 2", () => {

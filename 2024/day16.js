@@ -26,39 +26,63 @@ const parseInput = (input) => {
 }
 
 const solve = (input) => {
-  const { mapW, initLayout: layout, fns: { printMap, turnL, turnR, dirPos } } = parseInput(input);
+  const { mapW, initLayout: layout, fns: { printMap, pxy, turnL, turnR, dirPos } } = parseInput(input);
   console.log(printMap(layout));
-  const pts = R.map(R.ifElse(R.anyPass([R.equals(TILE.WALL), R.equals(TILE.START)]),R.always(0),R.always(Infinity)), layout);
-  console.debug(printMap(pts));
-
-  const start = R.indexOf(TILE.START)(layout);
-  const end = R.indexOf(TILE.END)(layout);
-  const dir = DIR.E;
-
-  const calcPts = ({ pos, dir, pts }) => {
-    console.debug({ pos, dir });
-    const fwd = pos+dirPos[dir];
-    const left = pos+dirPos[turnL[dir]];
-    const right = pos+dirPos[turnR[dir]];
-    const back = pos+dirPos[turnL[turnL[dir]]];
-    const destPtsInc = [1,1001,1001,2001];
-    const nextPos = [fwd,left,right,back];
-    const nextDir = [dir,turnL[dir],turnR[dir]];//,turnL[turnL[dir]]];
-    const nexts = nextDir.map((dir,idx) => ({
-      dir,
-      pos: nextPos[idx],
-      ptsInc: destPtsInc[idx]
-    }))
-
-    return R.reduce((pts, {pos:dest,dir,ptsInc}) => {
-      return (layout[dest] !== TILE.WALL) && (pts[pos]+ptsInc <= pts[dest]) ? calcPts({ pos: dest, dir, pts: R.update(dest,pts[pos]+ptsInc)(pts)}) : pts;
-    },pts,nexts);
+  const initPts = R.map(R.ifElse(R.equals(TILE.WALL),R.always(0),R.always(Infinity)), layout);
+  const ptsDir = {
+    [DIR.N] : R.clone(initPts),
+    [DIR.W] : R.clone(initPts),
+    [DIR.S] : R.clone(initPts),
+    [DIR.E] : R.clone(initPts),
   }
-  const tilePts = calcPts({pos:start,dir, pts});
+  console.debug(printMap(initPts));
 
-  console.debug(printMap(tilePts));
+  const startPos = R.indexOf(TILE.START)(layout);
+  const end = R.indexOf(TILE.END)(layout);
+  const startDir = DIR.E;
+  ptsDir[startDir][startPos] = 0;
 
-  return tilePts[end];
+
+  const calcPts = ({ pos:srcPos, dir:srcDir }) => {
+    // console.debug({ srcPos: pxy(srcPos), srcDir });
+    const nextPoss = [srcPos+dirPos[srcDir],srcPos,srcPos];
+    const nextDirs = [srcDir,turnL[srcDir],turnR[srcDir]];
+    const ptsIncs = [1,1000,1000];
+    const nexts = R.values(R.mapObjIndexed((destDir,idx) => ({
+      destPos: nextPoss[idx],
+      destDir,
+      ptsInc: ptsIncs[idx]
+    }))(nextDirs))
+
+    // console.debug({nexts:nexts.map(({destPos,destDir})=>[pxy(destPos),destDir].join(''))});
+
+    const srcPt = ptsDir[srcDir][srcPos];
+
+    return R.filter(Boolean,R.map(({destPos,destDir,ptsInc}) => {
+      const destPt = ptsDir[destDir][destPos];
+      // console.debug(`Move ${pxy(destPos)} ${destDir} ${ptsInc} ${srcPt+ptsInc} lt ${destPt}`);
+      if(srcPt+ptsInc < destPt) {
+        // console.debug(`set ${pxy(destPos)} ${destDir} ${srcPt}+${ptsInc} = ${srcPt+ptsInc}`);
+        ptsDir[destDir][destPos] = srcPt + ptsInc;
+        return ({ pos: destPos, dir: destDir });
+      }
+    })(nexts));
+  }
+
+  let moves = [{pos:startPos,dir:startDir}];
+
+  while(moves.length) {
+    moves = moves.flatMap(calcPts);
+  }
+
+  const tilePts = ptsDir[DIR.N];
+
+  // console.debug(printMap(ptsDir[DIR.N]));
+  // console.debug(printMap(ptsDir[DIR.W]));
+  // console.debug(printMap(ptsDir[DIR.S]));
+  // console.debug(printMap(ptsDir[DIR.E]));
+
+  return R.min(ptsDir[DIR.N][end],ptsDir[DIR.E][end]);
 };
 const part2 = (input) => {
   return "solution";
